@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .result-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+        }
+
+        .result-box {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .result-box h2 {
+            font-size: 28px;
+            color: #4CAF50;
+        }
+
+        .result-box p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .result-box .prediction {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e53935;
+            margin-top: 15px;
+        }
+
+        .back-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Deposit Prediction</h1>
+        <div class="result-box">
+            <h2>Prediction Result</h2>
+            <p>Your prediction result is ready!</p>
+            <div class="prediction">
+                <h3>{{ prediction }}</h3>
+            </div>
+        </div>
+        <a href="/" class="back-button">Go Back</a>
+    </div>
+</body>
+</html>

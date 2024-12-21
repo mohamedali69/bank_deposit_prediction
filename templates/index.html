@@ -69,114 +69,90 @@
     <form action="/predict" method="POST">
         <div>
             <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="18" max="99" required>
+            <input type="number" id="age" name="age" min="18" max="99" value="{{ form_data.age | default(18) }}" required>
         </div>
         <div>
             <label for="balance">Balance:</label>
-            <input type="number" id="balance" name="balance" step="1" required>
+            <input type="number" id="balance" name="balance" step="1" value="{{ form_data.balance }}" required>
         </div>
         <div>
             <label for="day">Day of the Month:</label>
-            <input type="number" id="day" name="day" min="1" max="31" required>
+            <input type="number" id="day" name="day" min="1" max="31" value="{{ form_data.day }}" required>
         </div>
         <div>
             <label for="duration">Duration (seconds):</label>
-            <input type="number" id="duration" name="duration" min="0" required>
-        </div>
-        <div>
-            <label for="default_bool">Default (0 = No, 1 = Yes):</label>
-            <select id="default_bool" name="default_bool" required>
-                <option value="0">No</option>
-                <option value="1">Yes</option>
-            </select>
+            <input type="number" id="duration" name="duration" min="0" value="{{ form_data.duration }}" required>
         </div>
         <div>
             <label for="housing_bool">Housing Loan (0 = No, 1 = Yes):</label>
             <select id="housing_bool" name="housing_bool" required>
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+                <option value="0" {% if form_data.housing_bool == '0' %} selected {% endif %}>No</option>
+                <option value="1" {% if form_data.housing_bool == '1' %} selected {% endif %}>Yes</option>
             </select>
         </div>
         <div>
             <label for="loan_bool">Personal Loan (0 = No, 1 = Yes):</label>
             <select id="loan_bool" name="loan_bool" required>
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+                <option value="0" {% if form_data.loan_bool == '0' %} selected {% endif %}>No</option>
+                <option value="1" {% if form_data.loan_bool == '1' %} selected {% endif %}>Yes</option>
             </select>
         </div>
         <div>
             <label for="job">Job Type:</label>
             <select id="job" name="job" required>
-                <option value="blue-collar">Blue-collar</option>
-                <option value="entrepreneur">Entrepreneur</option>
-                <option value="housemaid">Housemaid</option>
-                <option value="management">Management</option>
-                <option value="retired">Retired</option>
-                <option value="self-employed">Self-employed</option>
-                <option value="services">Services</option>
-                <option value="student">Student</option>
-                <option value="technician">Technician</option>
-                <option value="unemployed">Unemployed</option>
-                <option value="unknown">Unknown</option>
+                {% for job in ["blue-collar", "entrepreneur", "housemaid", "management", "retired", "self-employed", "services", "student", "technician", "unemployed", "unknown"] %}
+                    <option value="{{ job }}" {% if form_data.job == job %} selected {% endif %}>{{ job | replace("-", " ") | title }}</option>
+                {% endfor %}
             </select>
         </div>
         <div>
             <label for="marital">Marital Status:</label>
             <select id="marital" name="marital" required>
-                <option value="married">Married</option>
-                <option value="single">Single</option>
-                <option value="divorced">Divorced</option>
+                <option value="married" {% if form_data.marital == 'married' %} selected {% endif %}>Married</option>
+                <option value="single" {% if form_data.marital == 'single' %} selected {% endif %}>Single</option>
+                <option value="divorced" {% if form_data.marital == 'divorced' %} selected {% endif %}>Divorced</option>
             </select>
         </div>
         <div>
             <label for="education">Education:</label>
             <select id="education" name="education" required>
-                <option value="primary">Primary</option>
-                <option value="secondary">Secondary</option>
-                <option value="tertiary">Tertiary</option>
-                <option value="unknown">Unknown</option>
+                <option value="primary" {% if form_data.education == 'primary' %} selected {% endif %}>Primary</option>
+                <option value="secondary" {% if form_data.education == 'secondary' %} selected {% endif %}>Secondary</option>
+                <option value="tertiary" {% if form_data.education == 'tertiary' %} selected {% endif %}>Tertiary</option>
+                <option value="unknown" {% if form_data.education == 'unknown' %} selected {% endif %}>Unknown</option>
             </select>
         </div>
         <div>
             <label for="contact">Contact Type:</label>
             <select id="contact" name="contact" required>
-                <option value="cellular">Cellular</option>
-                <option value="telephone">Telephone</option>
-                <option value="unknown">Unknown</option>
+                <option value="cellular" {% if form_data.contact == 'cellular' %} selected {% endif %}>Cellular</option>
+                <option value="telephone" {% if form_data.contact == 'telephone' %} selected {% endif %}>Telephone</option>
+                <option value="unknown" {% if form_data.contact == 'unknown' %} selected {% endif %}>Unknown</option>
             </select>
         </div>
         <div>
             <label for="month">Month:</label>
             <select id="month" name="month" required>
-                <option value="jan">January</option>
-                <option value="feb">February</option>
-                <option value="mar">March</option>
-                <option value="apr">April</option>
-                <option value="may">May</option>
-                <option value="jun">June</option>
-                <option value="jul">July</option>
-                <option value="aug">August</option>
-                <option value="sep">September</option>
-                <option value="oct">October</option>
-                <option value="nov">November</option>
-                <option value="dec">December</option>
+                {% for month in ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"] %}
+                    <option value="{{ month }}" {% if form_data.month == month %} selected {% endif %}>{{ month | title }}</option>
+                {% endfor %}
             </select>
         </div>
         <div>
             <label for="poutcome">Previous Outcome:</label>
             <select id="poutcome" name="poutcome" required>
-                <option value="success">Success</option>
-                <option value="failure">Failure</option>
-                <option value="unknown">Unknown</option>
+                <option value="success" {% if form_data.poutcome == 'success' %} selected {% endif %}>Success</option>
+                <option value="failure" {% if form_data.poutcome == 'failure' %} selected {% endif %}>Failure</option>
+                <option value="unknown" {% if form_data.poutcome == 'unknown' %} selected {% endif %}>Unknown</option>
             </select>
         </div>
         <div>
             <label for="campaign_cleaned">Number of Campaign Contacts:</label>
-            <input type="number" id="campaign_cleaned" name="campaign_cleaned" min="0" required>
+            <input type="number" id="campaign_cleaned" name="campaign_cleaned" min="0" value="{{ form_data.campaign_cleaned }}" required>
         </div>
         <div>
             <label for="previous_cleaned">Number of Previous Contacts:</label>
-            <input type="number" id="previous_cleaned" name="previous_cleaned" min="0" required>
+            <input type="number" id="previous_cleaned" name="previous_cleaned" min="0" value="{{ form_data.previous_cleaned }}" required>
         </div>
         <button type="submit">Predict</button>
     </form>

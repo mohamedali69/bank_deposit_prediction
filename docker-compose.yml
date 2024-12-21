@@ -1,5 +1,4 @@
-version: '3.8'
-
+version: "3.8"
 services:
   app:
     build: .
@@ -8,3 +7,11 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=production
+    volumes:
+      - .:/app
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    driver: bridge
